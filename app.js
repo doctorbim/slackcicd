@@ -1,8 +1,8 @@
 const { WebClient } = require('@slack/web-api');
 const { createEventAdapter } = require('@slack/events-api');
 
-const slackSigningSecret = process.env.SLACK_SIGNING_SECRET;
-const slackToken = process.env.SLACK_TOKEN;
+const slackSigningSecret = '94a46143cfb81883e41778bc3a7d8831';
+const slackToken = process.env.'xoxb-324775556195-2099315281124-BezHnZp7rqtyegqpsSdUs1Ub';
 const port = process.env.SLACK_PORT || 3000;
 
 const slackEvents = createEventAdapter(slackSigningSecret);
