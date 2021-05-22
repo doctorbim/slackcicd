@@ -3,7 +3,7 @@ orbs:
   # https://circleci.com/developer/orbs/orb/circleci/node
   node: circleci/node@4.1.0
   # https://circleci.com/developer/orbs/orb/circleci/aws-ecr
-  aws-ecr: circlci/aws-ecr@6.15.0
+  aws-ecr: circleci/aws-ecr@6.15.0
 jobs:
   test:
     executor:
@@ -12,24 +12,24 @@ jobs:
     steps:
     - checkout
     - node/install-packages:
-      pkg-manager: npm
+        pkg-manager: npm
     - run:
-      command: npm test
-      name: Run Mocha tests
+        command: npm test
+        name: Run Mocha tests
     - store_artifacts:
-      path: /tmp/test-results
-      destination: raw-test-output
+        path: /tmp/test-results
+        destination: raw-test-output
     - store_test_results:
-      path: /tmp/test-results
+        path: /tmp/test-results
 workflows:
   node-tests:
     jobs:
     - test
     # Envs: AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_REGION, AWS_ECR_ACCOUNT_URL
     - aws-ecr/build-and-push-image:
-      repo: slackcicd
-      tag: "latest,v0.1.${CIRCLE_BUILD_NUM}"
-      dockerfile: build/Dockerfile.prod
-      path: .
-      requires:
-        - test
+        repo: slackcicd
+        tag: "latest,v0.1.${CIRCLE_BUILD_NUM}"
+        dockerfile: build/Dockerfile.prod
+        path: .
+        requires:
+          - test
